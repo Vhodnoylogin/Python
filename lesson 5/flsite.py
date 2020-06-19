@@ -2,7 +2,11 @@ from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
 
-menu = ['Установка', 'Первое приложение', 'Обратная связь']
+menu = [
+    {"name": 'Установка', "url": 'install-flask'}
+    , {"name": 'Первое приложение', "url": 'first-app'}
+    , {"name": 'Обратная связь', "url": 'contact'}
+]
 
 
 @app.route('/')
@@ -21,6 +25,11 @@ def about():
 @app.route('/profile/<username>')
 def profile(username):
     return f'Пользователь: {username}'
+
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html', title='Обратная связь', menu=menu)
 
 
 # with app.test_request_context():
