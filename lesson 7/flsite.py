@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, flash, session, redirect
+from flask import Flask, render_template, url_for, request, flash, session, redirect, abort
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'QQL'
@@ -7,6 +7,7 @@ menu = [
     {"name": 'Установка', "url": 'install-flask'}
     , {"name": 'Первое приложение', "url": 'first-app'}
     , {"name": 'Обратная связь', "url": 'contact'}
+    , {"name": 'Авторизация', "url": 'login'}
 ]
 
 
@@ -25,6 +26,8 @@ def about():
 
 @app.route('/profile/<username>')
 def profile(username):
+    if 'userLogged' not in session or session['userLogged'] != username:
+        abort(401)
     return f'Пользователь: {username}'
 
 
@@ -62,3 +65,4 @@ def page_not_found(error):
 
 if __name__ == "__main__":
     app.run(debug=True)
+    # session.clear()
