@@ -6,8 +6,8 @@
         <div class="flash {{ cat }}">{{ msg }}</div>
     {% endfor %}
     <form action="/contact" class="form-contact" method="post">
-        <p><label>Имя: </label><input name="username" required type="text" value=""/></p>
-        <p><label>Email: </label><input name="email" required type="text" value=""/></p>
+        <p><label>Имя: </label><input name="username" type="text" value=""/></p>
+        <p><label>Email: </label><input name="email" type="text" value=""/></p>
         <p><label>Сообщение: </label></p>
         <p><textarea cols="40" name="message" rows="7"></textarea></p>
         <p><input type="submit" value="Send"/></p>
