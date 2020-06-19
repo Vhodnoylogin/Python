@@ -33,7 +33,6 @@ def contact():
         print(request.form)
     return render_template('contact.html', title='Обратная связь', menu=menu)
 
-
 # with app.test_request_context():
 #     print(url_for('index'))
 #     print(url_for('about'))
