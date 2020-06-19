@@ -22,7 +22,7 @@ a:hover {
 
 ul.mainmenu {
     list-style: none;
-    background: aqua;
+    background: peru;
     height: 60px;
     margin: 0;
     padding: 0;
@@ -72,5 +72,11 @@ div.content {
 }
 
 .flash.success {
-    border: 1px solid red;
+    border: 1px solid chartreuse;
+    background: green;
+}
+
+.flash.error {
+    border: 1px solid firebrick;
+    background: red;
 }

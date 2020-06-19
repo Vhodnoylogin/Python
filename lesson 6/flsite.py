@@ -32,9 +32,9 @@ def profile(username):
 def contact():
     if request.method == 'POST':
         if len(request.form['username']) > 2:
-            flash('Сообщение отправлено')
+            flash('Сообщение отправлено', category='success')
         else:
-            flash('Ошибка отправки')
+            flash('Ошибка отправки', category='error')
 
     return render_template('contact.html', title='Обратная связь', menu=menu)
 
