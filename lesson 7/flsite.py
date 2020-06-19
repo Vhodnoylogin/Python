@@ -40,7 +40,7 @@ def contact():
 
 @app.errorhandler(404)
 def pageNotFound(error):
-    return render_template('page404.html', title='Страница не была найдена', menu=menu)
+    return render_template('page404.html', title='Страница не была найдена', menu=menu), 404
 
 # with app.test_request_context():
 #     print(url_for('index'))
