@@ -23,11 +23,11 @@ def profile(username):
     return f'Пользователь: {username}'
 
 
-with app.test_request_context():
-    print(url_for('index'))
-    print(url_for('about'))
-    print(url_for('profile', username='qql'))
+# with app.test_request_context():
+#     print(url_for('index'))
+#     print(url_for('about'))
+#     print(url_for('profile', username='qql'))
 
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
