@@ -1,7 +1,7 @@
 import os
 import sqlite3
 
-from flask import Flask
+from flask import Flask, render_template, g
 
 # config
 DATABASE = '/tmp/flsite.db'
@@ -21,7 +21,7 @@ def connect_db():
 
 
 def create_db():
-    '''Вспомогательная функция для создания БД'''
+    """Вспомогательная функция для создания БД"""
     db = connect_db()
     with app.open_resource('sq_db.sql', mode='r') as f:
         db.cursor().executescript(f.read())
@@ -29,20 +29,34 @@ def create_db():
     db.close()
 
 
-menu = [
-    {"name": 'Установка', "url": 'install-flask'}
-    , {"name": 'Первое приложение', "url": 'first-app'}
-    , {"name": 'Обратная связь', "url": 'contact'}
-    , {"name": 'Авторизация', "url": 'login'}
-]
+# menu = [
+#     {"name": 'Установка', "url": 'install-flask'}
+#     , {"name": 'Первое приложение', "url": 'first-app'}
+#     , {"name": 'Обратная связь', "url": 'contact'}
+#     , {"name": 'Авторизация', "url": 'login'}
+# ]
 
-# @app.route('/')
-# @app.route('/index')
-# def index():
-#     print(url_for('index'))
-#     return render_template('index.html', menu=menu)
-#
-#
+def get_db():
+    """Соединение с БД, если оно еще не установлено"""
+    if not hasattr(g, 'link_db'):
+        g.link_db = connect_db()
+    return g.link_db
+
+
+@app.route('/')
+@app.route('/index')
+def index():
+    db = get_db()
+    return render_template('index.html', menu=[])
+
+
+@app.teardown_appcontext
+def close_db(error):
+    """Закрываем соединение с БД, если оно было установлено"""
+    if hasattr(g, 'link_db'):
+        g.link_db.close()
+
+
 # @app.route('/about')
 # def about():
 #     print(url_for('about'))
