@@ -1,4 +1,5 @@
 import os
+import sqlite3
 
 from flask import Flask
 
@@ -7,11 +8,26 @@ DATABASE = '/tmp/flsite.db'
 DEBUG = True
 SECRET_KEY = 'QQL'
 
-
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-app.config.update(dict(DATABASE=os.path.join(app.root_path,'flsite.db')))
+app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flsite.db')))
+
+
+def connect_db():
+    conn = sqlite3.connect(app.config['DATABASE'])
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def create_db():
+    '''Вспомогательная функция для создания БД'''
+    db = connect_db()
+    with app.open_resource('sq_db.sql', mode='r') as f:
+        db.cursor().executescript(f.read())
+    db.commit()
+    db.close()
+
 
 menu = [
     {"name": 'Установка', "url": 'install-flask'}
@@ -19,7 +35,6 @@ menu = [
     , {"name": 'Обратная связь', "url": 'contact'}
     , {"name": 'Авторизация', "url": 'login'}
 ]
-
 
 # @app.route('/')
 # @app.route('/index')
