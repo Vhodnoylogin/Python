@@ -18,13 +18,15 @@ def about():
     return render_template('about.html', title='О сайте', menu=menu)
 
 
-@app.route('/profile/<int:username>/<path>')
+@app.route('/profile/<username>/<path>')
 def profile(username, path):
     return f'Пользователь: {username}, {path}'
 
 
-# with app.test_request_context():
-#     print(url_for('index'))
+with app.test_request_context():
+    print(url_for('index'))
+    print(url_for('about'))
+    print(url_for('profile', username='qql', path='123'))
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
