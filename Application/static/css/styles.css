@@ -49,6 +49,34 @@ ul.mainmenu a:hover {
     color: red;
 }
 
+ul.list-posts {
+    list-style: none;
+    #background: peru;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    #color: bisque;
+    font-size: 20px;
+    #overflow: hidden;
+}
+
+ul.list-posts li {
+    #float: left;
+    margin: 18px 40px 0 50px;
+    border: 1px solid firebrick;
+}
+
+ul.list-posts .announce {
+    color: red;
+    text-decoration: darkgreen;
+}
+
+ul.list-posts .title {
+    color: red;
+    text-decoration: aqua;
+    #float: right;
+}
+
 
 div.content {
     margin: 10px;

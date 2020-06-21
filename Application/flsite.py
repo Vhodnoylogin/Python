@@ -1,7 +1,7 @@
 import os
 import sqlite3
 
-from flask import Flask, render_template, g, flash, request
+from flask import Flask, render_template, g, flash, request, abort
 
 from FDataBase import FDataBase
 
@@ -44,7 +44,7 @@ def get_db():
 def index():
     db = get_db()
     dbase = FDataBase(db)
-    return render_template('index.html', menu=dbase.get_menu())
+    return render_template('index.html', menu=dbase.get_menu(), posts=dbase.get_posts_annonce())
 
 
 @app.teardown_appcontext
@@ -69,6 +69,19 @@ def add_post():
             flash('Ошбка добавления статьи', category='error')
 
     return render_template('add_post.html', menu=dbase.get_menu(), title='Добавление статьи')
+
+
+@app.route('/post/<post_id>')
+def show_post(post_id):
+    db = get_db()
+    dbase = FDataBase(db)
+
+    title, post = dbase.get_post(post_id)
+    if not title:
+        abort(404)
+
+    return render_template('post.html', menu=dbase.get_menu(), title=title, post=post)
+
 
 # @app.route('/about')
 # def about():
@@ -104,9 +117,11 @@ def add_post():
 #     return render_template('login.html', title='Авторизация', menu=menu)
 #
 #
-# @app.errorhandler(404)
-# def page_not_found(error):
-#     return render_template('page404.html', title='Страница не была найдена', menu=menu), 404
+@app.errorhandler(404)
+def page_not_found(error):
+    db = get_db()
+    dbase = FDataBase(db)
+    return render_template('page404.html', title='Страница не была найдена', menu=dbase.get_menu()), 404
 
 
 if __name__ == "__main__":
