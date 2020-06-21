@@ -3,8 +3,11 @@ import sqlite3
 
 from flask import Flask, render_template, g
 
+from FDataBase import FDataBase
+
 # config
-DATABASE = '/tmp/flsite.db'
+# DATABASE = '/tmp/flsite.db'
+DATABASE = 'flsite.db'
 DEBUG = True
 SECRET_KEY = 'QQL'
 
@@ -44,10 +47,11 @@ def get_db():
 
 
 @app.route('/')
-@app.route('/index')
+# @app.route('/index')
 def index():
     db = get_db()
-    return render_template('index.html', menu=[])
+    dbase = FDataBase(db)
+    return render_template('index.html', menu=dbase.getMenu())
 
 
 @app.teardown_appcontext
