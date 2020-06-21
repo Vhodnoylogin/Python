@@ -5,9 +5,7 @@
       <entry url="file://$PROJECT_DIR$">
         <entryData>
           <resourceRoots>
-            <path value="file://$PROJECT_DIR$/Application/static" />
             <path value="file://$PROJECT_DIR$/Application/templates" />
-            <path value="file://$PROJECT_DIR$/Application" />
           </resourceRoots>
         </entryData>
       </entry>
